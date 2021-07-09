@@ -68,7 +68,7 @@ class ListingBot():
                     password=PASSWORD)
 
         mail.send(receiver=['tyagi.6@iitj.ac.in'],  # Email From Any service Provider
-                subject='ETL Listing Update<Test Mail>',
+                subject='ETL Listing Update',
                 message=f'ETL has been listed on this exchange -{msg}')
 
 
