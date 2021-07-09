@@ -1,8 +1,10 @@
 import os
+import time
 from mailer import Mailer
 import json
 import requests
 from requests.structures import CaseInsensitiveDict
+from termcolor import colored
 from requests_html import HTMLSession
 from dotenv import load_dotenv
 
@@ -54,6 +56,8 @@ class ListingBot():
         except ValueError:
             pass
             
+        hitBTC = True
+        print("Checked all exchanges !")
         temp = [hitBTC,probit,btc,chg]
         names = {0:'hitBTC',1:'probit',2:'bitcoin.com',3:'changelly'}
 
@@ -61,7 +65,9 @@ class ListingBot():
         for i in range(4):
             if temp[i]:
                 msg.append(names[i])
-        self.send_mail(" ,".join(msg))
+
+        if msg != []:
+            self.send_mail(" ,".join(msg))
             
     def send_mail(self, msg):
         mail = Mailer(email='tyagipratyaksh@gmail.com',
@@ -73,5 +79,15 @@ class ListingBot():
 
 
 if __name__ == "__main__":
-    bot = ListingBot()
-    bot.main()
+    sleep_time = 2 * 60  # Converting 30 minutes to seconds
+    while True:
+        bot = ListingBot()
+        bot.main()
+        print(colored("Waiting 15 mins..", "blue"))
+        t = sleep_time
+        while t:
+            mins, secs = divmod(t, 60)
+            timer = "{:02d}:{:02d}".format(mins, secs)
+            print(colored(timer, "yellow"), end="\r")
+            time.sleep(1)
+            t -= 1
