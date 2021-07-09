@@ -13,7 +13,8 @@ load_dotenv()
 PASSWORD = os.getenv('PASSWORD')
 
 class ListingBot():
-    def __init__(self) -> None:
+    def __init__(self, count) -> None:
+        self.count = count
         self.headers = CaseInsensitiveDict()
         self.headers["accept"] = "application/json"
         self.userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36'
@@ -56,7 +57,7 @@ class ListingBot():
         except ValueError:
             pass
 
-        print("Checked all exchanges !")
+        print(f"{self.count}. Checked all exchanges !")
         temp = [hitBTC,probit,btc,chg]
         names = {0:'hitBTC',1:'probit',2:'bitcoin.com',3:'changelly'}
 
@@ -79,8 +80,9 @@ class ListingBot():
 
 if __name__ == "__main__":
     sleep_time = 15 * 60  # Converting 15 minutes to seconds
+    count = 0
     while True:
-        bot = ListingBot()
+        bot = ListingBot(count)
         bot.main()
         print(colored("Waiting 15 mins..", "blue"))
         t = sleep_time
