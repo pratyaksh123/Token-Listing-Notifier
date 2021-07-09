@@ -92,3 +92,4 @@ if __name__ == "__main__":
             print(colored(timer, "yellow"), end="\r")
             time.sleep(1)
             t -= 1
+        count += 1
