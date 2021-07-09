@@ -55,8 +55,7 @@ class ListingBot():
             
         except ValueError:
             pass
-            
-        hitBTC = True
+
         print("Checked all exchanges !")
         temp = [hitBTC,probit,btc,chg]
         names = {0:'hitBTC',1:'probit',2:'bitcoin.com',3:'changelly'}
@@ -73,13 +72,13 @@ class ListingBot():
         mail = Mailer(email='tyagipratyaksh@gmail.com',
                     password=PASSWORD)
 
-        mail.send(receiver=['tyagi.6@iitj.ac.in'],  # Email From Any service Provider
+        mail.send(receiver=['tyagi.6@iitj.ac.in','swami.2@iitj.ac.in','aniketkesari007@gmail.com'],  # Email From Any service Provider
                 subject='ETL Listing Update',
                 message=f'ETL has been listed on this exchange -{msg}')
 
 
 if __name__ == "__main__":
-    sleep_time = 2 * 60  # Converting 30 minutes to seconds
+    sleep_time = 15 * 60  # Converting 15 minutes to seconds
     while True:
         bot = ListingBot()
         bot.main()
