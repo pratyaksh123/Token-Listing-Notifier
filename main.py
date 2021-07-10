@@ -41,28 +41,12 @@ class ListingBot():
 
         if resp.status_code == 200 and resp.json() != []:
             btc = True
-
-        # Changelly
-        chg = False
-        session = HTMLSession()
-        r = session.get('https://changelly.com/supported-currencies',headers={'User-Agent':self.userAgent})
-        r.html.render(timeout = 60)
-        try:
-            data = json.loads(r.html.find('script')[6].text)
-            enabledTickers = data['props']['pageProps']['initialState']['currencies']['enabledTickers']
-            for i in enabledTickers:
-                if i == "etl":
-                    chg = True
-            
-        except ValueError:
-            pass
-
         print(f"{self.count}. Checked all exchanges !")
-        temp = [hitBTC,probit,btc,chg]
-        names = {0:'hitBTC',1:'probit',2:'bitcoin.com',3:'changelly'}
+        temp = [hitBTC,probit,btc]
+        names = {0:'hitBTC',1:'probit',2:'bitcoin.com'}
 
         msg = []
-        for i in range(4):
+        for i in range(3):
             if temp[i]:
                 msg.append(names[i])
 
@@ -73,7 +57,7 @@ class ListingBot():
         mail = Mailer(email='tyagipratyaksh@gmail.com',
                     password=PASSWORD)
 
-        mail.send(receiver=['tyagi.6@iitj.ac.in','swami.2@iitj.ac.in','aniketkesari007@gmail.com'],  # Email From Any service Provider
+        mail.send(receiver=['tyagi.6@iitj.ac.in'],  # Email From Any service Provider
                 subject='ETL Listing Update',
                 message=f'ETL has been listed on this exchange -{msg}')
 
