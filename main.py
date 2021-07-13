@@ -41,12 +41,25 @@ class ListingBot():
 
         if resp.status_code == 200 and resp.json() != []:
             btc = True
+
+        # P2pB2b exchange
+        p2pb2p = False
+        payload={}
+        headers = {}
+
+        response = requests.request("GET", url = "http://api.p2pb2b.io/api/v2/public/tickers" , headers=headers, data=payload)
+        data = response.json()
+        if data['success']:
+            for i in data['result']:
+                if 'ETL' in i:
+                    p2pb2p = True
+                    break
         print(f"{self.count}. Checked all exchanges !")
-        temp = [hitBTC,probit,btc]
-        names = {0:'hitBTC',1:'probit',2:'bitcoin.com'}
+        temp = [hitBTC,probit,btc,p2pb2p]
+        names = {0:'hitBTC',1:'probit',2:'bitcoin.com',3:'p2pb2p'}
 
         msg = []
-        for i in range(3):
+        for i in range(4):
             if temp[i]:
                 msg.append(names[i])
 
