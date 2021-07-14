@@ -47,7 +47,7 @@ class ListingBot():
         payload={}
         headers = {}
 
-        response = requests.request("GET", url = "http://api.p2pb2b.io/api/v2/public/tickers" , headers=headers, data=payload)
+        response = requests.request("GET", url = "http://api.p2pb2b.io/api/v2/public/markets" , headers=headers, data=payload)
         data = response.json()
         if data['success']:
             for i in data['result']:
